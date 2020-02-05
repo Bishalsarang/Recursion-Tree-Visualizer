@@ -88,8 +88,9 @@ class Visualiser(object):
             result = fn(*args, **kwargs)
 
             # #Child Node
-
-            child_label = current_function_label + f" => {result}"
+            child_label = current_function_label
+            if self.show_return_value:
+                child_label += f" => {result}"
             child_name = current_function_signature
             v = pydot.Node(name=child_name, label=child_label)
             self.graph.add_node(v)
