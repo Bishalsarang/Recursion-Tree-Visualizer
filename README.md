@@ -2,6 +2,7 @@
 Recursion visualiser is a python tool that draws recursion tree for recursive function with very less code changes.
 
 ## Example
+### 1.  Fibonacci
 Let's draw the recursion tree for fibonacci number.
 Here is how the simple code looks like
 ```python
@@ -52,4 +53,37 @@ Here are the changes required:
 
 Here is how the recursion tree looks like:
 ![enter image description here](https://github.com/sarangbishal/Recursion-Visualizer/blob/master/examples/fibonacci.png)
+
+## 2. Make sum
+This is taken from one of my answers on quora where I had to manually  draw recursion tree. Using Visualiser with very less changes I was able to draw the following tree.
+![enter image description here](https://github.com/sarangbishal/Recursion-Visualizer/blob/master/examples/make_sum.png)
+
+
+## Installation
+The only dependency for recursin visualiser is Graphviz which you can download from [here](https://www.graphviz.org/download/)
+
+
+
+-   Download  [graphviz binary](https://www.graphviz.org/download/)
+-   Add graphviz bin to path manually or by adding the following line on your script. Change the installation directory according to your installation path
+
+```
+# Set it to bin folder of graphviz
+os.environ["PATH"] += os.pathsep +  'C:/Program Files (x86)/Graphviz2.38/bin/'
+```
+-   Install all the requirements
+
+```
+pip install -r requirements.txt
+```
+
+See the examples inside `example` toknow how to use
+
+
+## TODO:
+	
+ - [x] Minimal working version
+ - [ ] Refactor
+ - [ ] Handle base cases
+ - [ ] Make more beautful trees
 
