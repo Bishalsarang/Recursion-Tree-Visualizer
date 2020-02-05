@@ -11,8 +11,8 @@ class Visualiser(object):
         self.ignore_args = ignore_args
 
     @classmethod
-    def write_image(self, filename="out"):
-        self.graph.write_png(f"{filename}.png")
+    def write_image(self, filename="out.png"):
+        self.graph.write_png(f"{filename}")
 
     def __call__(self, fn):
         @wraps(fn)
@@ -94,7 +94,7 @@ class Visualiser(object):
             u = None
 
             if caller_function_name != '<module>':
-                print(f"Called {current_function_signature} by {caller_func_signature}")
+                print(f"Called {current_function_label} by {caller_func_label}")
                 u = pydot.Node(name=caller_func_signature, label=caller_func_label)
                 self.graph.add_node(u)
                 edge = pydot.Edge(u, v)
