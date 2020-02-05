@@ -1,7 +1,7 @@
 # Author: Bishal Sarang
 
 # Import Visualiser class from module visualiser
-from visualiser import Visualiser as vs
+from visualiser.visualiser import Visualiser as vs
 
 # Add decorator
 # Decorator accepts arguments: ignore_args and show_argument_name

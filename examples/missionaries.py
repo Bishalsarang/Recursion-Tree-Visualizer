@@ -1,4 +1,5 @@
-from  visualiser import  Visualiser as vs
+from visualiser.visualiser import Visualiser as vs
+
 start_state = (3, 3, 1)
 goal_state = (0, 0, 0)
 

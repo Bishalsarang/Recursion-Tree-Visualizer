@@ -77,12 +77,15 @@ os.environ["PATH"] += os.pathsep +  'C:/Program Files (x86)/Graphviz2.38/bin/'
 pip install -r requirements.txt
 ```
 
-See the examples inside `example` toknow how to use
+See the examples inside `example` to know how to use
 
+Alternatively, you can install ```recursion-visualiser``` package from pypi by:<br>
+```pip install recursion-visualiser==0.0.2 ```
 
 ## TODO:
 	
  - [x] Minimal working version
+ - [x] Upload package to pypi
  - [ ] Refactor
  - [ ] Handle base cases
  - [ ] Make more beautful trees

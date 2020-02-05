@@ -1,5 +1,5 @@
 # Author: Bishal Sarang
-from visualiser import  Visualiser as vs
+from visualiser.visualiser import Visualiser as vs
 
 """
     Problemm Link: https://qr.ae/TltTCV
