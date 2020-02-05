@@ -51,5 +51,5 @@ Here are the changes required:
  - Write the image
 
 Here is how the recursion tree looks like:
-
+![enter image description here](https://github.com/sarangbishal/Recursion-Visualizer/blob/master/examples/fibonacci.png)
 
