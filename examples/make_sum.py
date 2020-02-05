@@ -16,7 +16,8 @@ from visualiser import  Visualiser as vs
         [7, 3]
 """
 
-@vs(ignore_args=['node_num'], show_argument_name=False)
+
+@vs(ignore_args=['node_num'], show_argument_name=False, show_return_value=False)
 def f(sum, ans, node_num):
     # If sum becoms 0 we have found the required list
     if sum == 0:

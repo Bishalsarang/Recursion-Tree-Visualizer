@@ -17,7 +17,7 @@ def fib(n, node_num):
     return left + right
 
 # Call function
-fib(n=6, node_num=0)
+print(fib(n=6, node_num=0))
 
 # Save recursion tree to a file
-vs.write_image("fibonacci")
+vs.write_image("fibonacci.png")

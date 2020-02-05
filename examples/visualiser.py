@@ -3,11 +3,14 @@ from functools import wraps
 from collections import OrderedDict
 import pydot
 
+
 class Visualiser(object):
     node_count = 0
     graph = pydot.Dot(graph_type="digraph")
-    def __init__(self, ignore_args, show_argument_name=True):
+
+    def __init__(self, ignore_args, show_argument_name=True, show_return_value=True):
         self.show_argument_name = show_argument_name
+        self.show_return_value = show_return_value
         self.ignore_args = ignore_args
 
     @classmethod
@@ -85,7 +88,8 @@ class Visualiser(object):
             result = fn(*args, **kwargs)
 
             # #Child Node
-            child_label = current_function_label
+
+            child_label = current_function_label + f" => {result}"
             child_name = current_function_signature
             v = pydot.Node(name=child_name, label=child_label)
             self.graph.add_node(v)
