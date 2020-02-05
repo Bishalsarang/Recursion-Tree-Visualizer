@@ -55,7 +55,7 @@ Here is how the recursion tree looks like:
 ![enter image description here](https://github.com/sarangbishal/Recursion-Visualizer/blob/master/examples/fibonacci.png)
 
 ## 2. Make sum
-This is taken from one of my answers on quora where I had to manually  draw recursion tree. Using Visualiser with very less changes I was able to draw the following tree.
+This is taken from one of my answers on quora where I had to manually  draw recursion tree. Using Visualiser with very less changes I was able to draw the following tree. You can compare the tree [here](https://qr.ae/TltTCV)
 ![enter image description here](https://github.com/sarangbishal/Recursion-Visualizer/blob/master/examples/make_sum.png)
 
 
