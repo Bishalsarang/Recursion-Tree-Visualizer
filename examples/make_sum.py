@@ -18,7 +18,7 @@ from visualiser.visualiser import Visualiser as vs
 
 
 @vs(ignore_args=['node_num'], show_argument_name=False, show_return_value=False)
-def f(sum, ans, node_num):
+def f(sum, ans):
     # If sum becoms 0 we have found the required list
     if sum == 0:
         print(ans)
@@ -27,10 +27,7 @@ def f(sum, ans, node_num):
     # Number that is included also can be included
     for elem in nums:
         if sum - elem >= 0:
-
-            # Increment vs.node_count before each function call
-            vs.node_count += 1
-            f(sum=sum - elem, ans=ans + [elem], node_num=vs.node_count)
+            f(sum=sum - elem, ans=ans + [elem])
 
 
 # We want to make the sum from list nums
@@ -38,5 +35,5 @@ nums = [2, 3, 7]
 sum = 10
 
 # Call solve with sum and an empty list
-f(sum=sum, ans=[], node_num=0)
+f(sum=sum, ans=[])
 vs.write_image("make_sum.png")

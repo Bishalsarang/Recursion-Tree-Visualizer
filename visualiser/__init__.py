@@ -1,3 +1,3 @@
 
-# Version of the realpython-reader package
-__version__ = "0.0.2"
+# Version of the recursion-visualiser
+__version__ = "0.0.4"

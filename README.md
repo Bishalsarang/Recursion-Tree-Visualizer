@@ -27,38 +27,30 @@ Let's draw the recursion tree for fibonacci number.
 Here is how the simple code looks like  
 ```python  
 def fib(n):  
-	if n <= 1: 
-		return n 
-	return fib(n - 1) + fib(n - 2)  print(fib(6))  
+    if n <= 1: 
+        return n 
+    return fib(n - 1) + fib(n - 2)  
+
+print(fib(6))  
 ```  
   
 Now we want to draw the recursion tree for this function. It is as simple as adding a decorator  
 ```python  
-# Author: Bishal Sarang
-
 # Import Visualiser class from module visualiser
 from visualiser.visualiser import Visualiser as vs
 
-
 # Add decorator
 # Decorator accepts arguments: ignore_args and show_argument_name
-@vs(ignore_args=['node_num'])
-def fib(n, node_num):
+@vs()
+def fib(n):
     if n <= 1:
         return n
-    # Increment node count
-    vs.node_count += 1
-    left = fib(n=n - 1, node_num=vs.node_count)
-    
-    # Increment node count
-    vs.node_count += 1
-    right = fib(n=n - 2, node_num=vs.node_count)
-    return left + right
+    return fib(n=n - 1) + fib(n=n - 2)
+
 
 def main():
     # Call function
-    print(fib(n=6, node_num=0))
-
+    print(fib(n=6))
     # Save recursion tree to a file
     vs.write_image("fibonacci.png")
 
@@ -67,10 +59,8 @@ if __name__ == "__main__":
     main()
 ```  
 Here are the changes required:  
-  
- - Change function signature from `fib(n)` to `fib(n, node_num)`  
- - Add decorator Visualiser which accepts arguments `ignore_args` and `show_argument_name`  
- - Before each function calls make sure to increment `node_count` argument of decorator class   
+ 
+ - Add decorator Visualiser which accepts optional arguments `ignore_args`, `show_argument_name`  and 'show_return_value'   
  - Change every function calls to pass as keyword arguments.  
  - Write the image  
   

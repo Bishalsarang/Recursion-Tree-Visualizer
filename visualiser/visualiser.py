@@ -7,13 +7,24 @@ import pydot
 
 
 class Visualiser(object):
+    # Total number of nodes
     node_count = 0
     graph = pydot.Dot(graph_type="digraph")
+    # To track function call numbers
+    stack = []
 
-    def __init__(self, ignore_args, show_argument_name=True, show_return_value=True):
+    def __init__(self, ignore_args=None, show_argument_name=True, show_return_value=True):
+        #If enabled shows keyword arguments ordered by keys
         self.show_argument_name = show_argument_name
+        # If enables shows the return value at every nodes
         self.show_return_value = show_return_value
-        self.ignore_args = ignore_args
+
+        # Argument string that are to be ignored in diagram
+        if ignore_args is None:
+            self.ignore_args = ['node_num']
+        else:
+            self.ignore_args = ['node_num'] + ignore_args
+
 
     @classmethod
     def write_image(cls, filename="out.png"):
@@ -57,8 +68,15 @@ class Visualiser(object):
     def __call__(self, fn):
         @wraps(fn)
         def wrapper(*args, **kwargs):
+
+            # Increment total number of nodes when a call is made
+            self.node_count += 1
+
+            # Update kwargs by adding dummy keyword node_num which helps to uniquely identify each node
+            kwargs.update({'node_num': self.node_count})
             # Order all the keyword arguments
             kwargs = OrderedDict(sorted(kwargs.items()))
+
 
             """Details about current Function"""
             # Get signature and label arguments strings for current function
@@ -85,6 +103,11 @@ class Visualiser(object):
             # Extract only those locals that are in arguments
             caller_function_kwargs = {key: value for key, value in caller_function_locals.items() if key in caller_function_argument_names}
 
+            # If the nodes has parent node get node_num from parent node
+            if self.stack:
+                caller_function_kwargs.update({'node_num': self.stack[-1]})
+            caller_function_kwargs = OrderedDict(sorted(caller_function_kwargs.items()))
+
             caller_function_argument_string, caller_function_label_argument_string = self.extract_signature_label_arg_string(**caller_function_kwargs)
 
             # Caller Function
@@ -98,7 +121,15 @@ class Visualiser(object):
             if caller_function_name == '<module>':
                 print(f"Drawing for {current_function_signature}")
 
+            # Push node_count to stack
+            self.stack.append(self.node_count)
+            # Before actual function call delete keyword 'node_num' from kwargs
+            del kwargs['node_num']
+            # Return after function call
             result = fn(*args, **kwargs)
+
+            # Pop from tha stack after returning
+            self.stack.pop()
 
             # If show_return_value flag is set, display the result
             if self.show_return_value:
@@ -117,25 +148,3 @@ class Visualiser(object):
                 self.graph.add_edge(edge)
             return result
         return wrapper
-
-@Visualiser(ignore_args=["node_num"])
-def fib(n, node_num):
-    if n <= 1:
-        return n
-    Visualiser.node_count += 1
-    left = fib(n=n - 1, node_num=Visualiser.node_count)
-
-    Visualiser.node_count += 1
-    right = fib(n=n - 2, node_num=Visualiser.node_count)
-    return left + right
-
-def main():
-    # Call function
-    print(fib(n=6, node_num=0))
-
-    # Save recursion tree to a file
-    Visualiser.write_image("fibonacci.png")
-
-
-if __name__ == "__main__":
-    main()
