@@ -17,9 +17,13 @@ def fib(n, node_num):
     right = fib(n=n - 2, node_num=vs.node_count)
     return left + right
 
-if __name__ == "__main__":
+def main():
     # Call function
     print(fib(n=6, node_num=0))
 
     # Save recursion tree to a file
     vs.write_image("fibonacci.png")
+
+
+if __name__ == "__main__":
+    main()

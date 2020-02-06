@@ -108,7 +108,7 @@ class Visualiser(object):
             self.graph.add_node(child_node)
 
             # If the function is called by another function
-            if caller_function_name != '<module>':
+            if caller_function_name not in ['<module>', 'main']:
                 print(f"Called {current_function_label} by {caller_func_label}")
 
                 parent_node = pydot.Node(name=caller_func_signature, label=caller_func_label)
@@ -117,3 +117,25 @@ class Visualiser(object):
                 self.graph.add_edge(edge)
             return result
         return wrapper
+
+@Visualiser(ignore_args=["node_num"])
+def fib(n, node_num):
+    if n <= 1:
+        return n
+    Visualiser.node_count += 1
+    left = fib(n=n - 1, node_num=Visualiser.node_count)
+
+    Visualiser.node_count += 1
+    right = fib(n=n - 2, node_num=Visualiser.node_count)
+    return left + right
+
+def main():
+    # Call function
+    print(fib(n=6, node_num=0))
+
+    # Save recursion tree to a file
+    Visualiser.write_image("fibonacci.png")
+
+
+if __name__ == "__main__":
+    main()
