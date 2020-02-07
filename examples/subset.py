@@ -27,4 +27,5 @@ def f(nums, i, current_subset):
 if __name__ == "__main__":
     nums = [1, 2, 3]
     f(nums=nums, i = len(nums), current_subset=[])
-    vs.write_image("subset.png")
+    # Save recursion tree to a file
+    vs.make_animation("subset.gif", delay=3)

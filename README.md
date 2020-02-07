@@ -36,6 +36,8 @@ print(fib(6))
   
 Now we want to draw the recursion tree for this function. It is as simple as adding a decorator  
 ```python  
+# Author: Bishal Sarang
+
 # Import Visualiser class from module visualiser
 from visualiser.visualiser import Visualiser as vs
 
@@ -52,7 +54,7 @@ def main():
     # Call function
     print(fib(n=6))
     # Save recursion tree to a file
-    vs.write_image("fibonacci.png")
+    vs.make_animation("fibonacci.gif", delay=2)
 
 
 if __name__ == "__main__":
@@ -62,11 +64,16 @@ Here are the changes required:
  
  - Add decorator Visualiser which accepts optional arguments `ignore_args`, `show_argument_name`  and 'show_return_value'   
  - Change every function calls to pass as keyword arguments.  
- - Write the image  
+ - Make_animation
   
+ The output image are saved as "fibonacci.gif" and "fibonacci.png"
+ 
 Here is how the recursion tree looks like:  
-![enter image description here](https://github.com/sarangbishal/Recursion-Visualizer/blob/master/examples/fibonacci.png)  
+Animation:
+![enter image description here](https://github.com/sarangbishal/Recursion-Visualizer/blob/master/examples/fibonacci.gif)  
   
+![enter image description here](https://github.com/sarangbishal/Recursion-Visualizer/blob/master/examples/fibonacci.png)  
+
 ## 2. Make sum  
 This is taken from one of my answers on quora where I had to manually  draw recursion tree. Using Visualiser with very less changes I was able to draw the following tree. You can compare the tree [here](https://qr.ae/TltTCV)  
 ![enter image description here](https://github.com/sarangbishal/Recursion-Visualizer/blob/master/examples/make_sum.png)  
@@ -76,6 +83,7 @@ This is taken from one of my answers on quora where I had to manually  draw recu
 ## TODO:  
  - [x] Minimal working version  
  - [x] Upload package to pypi  
+ - [x] Support animation
  - [ ] Refactor  
  - [ ] Handle base cases  
  - [ ] Make more beautiful trees

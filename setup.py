@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="recursion-visualiser", # Replace with your own username
-    version="0.0.3",
+    version="1.0.0",
     author="Bishal Sarangkoti",
     author_email="sarangbishal@gmail.com",
     description="A small python package to visualise recursive function on Python. It draws recursion tree",
@@ -18,6 +18,6 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    install_requires=["pydot"],
+    install_requires=["pydot", "imageio"],
     python_requires='>=3.6',
 )

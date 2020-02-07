@@ -1,10 +1,17 @@
 # Author: Bishal Sarang
-
 import sys
 from functools import wraps
 from collections import OrderedDict
 import pydot
+import imageio
+import glob
+import os
+import shutil
 
+# Dot Language for graph
+dot_str_start = "digraph G {\n"
+dot_str_body = ""
+dot_str_end = "}"
 
 class Visualiser(object):
     # Total number of nodes
@@ -12,6 +19,8 @@ class Visualiser(object):
     graph = pydot.Dot(graph_type="digraph")
     # To track function call numbers
     stack = []
+    edges = []
+    nodes = []
 
     def __init__(self, ignore_args=None, show_argument_name=True, show_return_value=True):
         #If enabled shows keyword arguments ordered by keys
@@ -26,6 +35,7 @@ class Visualiser(object):
             self.ignore_args = ['node_num'] + ignore_args
 
 
+
     @classmethod
     def write_image(cls, filename="out.png"):
         try:
@@ -33,6 +43,68 @@ class Visualiser(object):
             print(f"File {filename} successfully written")
         except Exception:
             print(f"Writing {filename} failed")
+
+    @classmethod
+    def make_frames(cls):
+        """
+        Make frame for each steps
+        """
+        # If frame directory doesn't exist
+        if not os.path.exists("frames"):
+            os.makedirs("frames")
+
+        Edges = cls.edges[::]
+        Nodes = cls.nodes[::]
+        print("Writing frames....")
+        for i in range(len(Edges)):
+            nodes = Nodes[::]
+            edges = Edges[::]
+
+            for j in range(0, i + 1):
+                nodes[j] += '];'
+
+            for j in range(i + 1, len(Edges)):
+                nodes[j] += ' , style=invis];'
+                edges[j] += ' [style=invis];'
+
+            dot_str_body = "\n".join(nodes) + "\n"
+            dot_str_body += "\n".join(edges)
+            dot_str = dot_str_start + dot_str_body + dot_str_end
+            g = pydot.graph_from_dot_data(dot_str)
+            g[0].write_png(f"frames/temp_{i}.png")
+
+    @classmethod
+    def write_gif(cls, name="out.gif", delay=3):
+        images = []
+        imgs = glob.glob("frames/*.png")
+        for filename in sorted(imgs, key=lambda fn: int(fn.split("_")[1].split(".")[0])):
+            images.append(imageio.imread(filename))
+        print("Writing gif...")
+        imageio.mimsave(name, images, duration=delay)
+        print(f"Saved gif {name} successfully")
+        # Delete temporary directory
+        shutil.rmtree("frames")
+
+    @classmethod
+    def make_animation(cls, filename="out.gif", delay=3):
+        print("Starting to make animation")
+        # Save final tree image as png
+        try:
+            cls.write_image(f"{filename.split('.')[0]}.png")
+        except:
+            print("Error saving image.")
+
+        # Make animation as gif
+        try:
+            cls.make_frames()
+        except:
+            print("Error writing frames")
+
+        try:
+            cls.write_gif(filename, delay=delay)
+        except:
+            print("Error saving gif.")
+
 
     def extract_signature_label_arg_string(self, *args, **kwargs):
         """
@@ -68,7 +140,7 @@ class Visualiser(object):
     def __call__(self, fn):
         @wraps(fn)
         def wrapper(*args, **kwargs):
-
+            global dot_str_body
             # Increment total number of nodes when a call is made
             self.node_count += 1
 
@@ -125,8 +197,13 @@ class Visualiser(object):
             self.stack.append(self.node_count)
             # Before actual function call delete keyword 'node_num' from kwargs
             del kwargs['node_num']
+
+            self.edges.append(f'"{caller_func_signature}" -> "{current_function_signature}"')
+            self.nodes.append(f'"{current_function_signature}" [label="{current_function_label}"')
+
             # Return after function call
             result = fn(*args, **kwargs)
+
 
             # Pop from tha stack after returning
             self.stack.pop()
@@ -140,11 +217,12 @@ class Visualiser(object):
 
             # If the function is called by another function
             if caller_function_name not in ['<module>', 'main']:
-                print(f"Called {current_function_label} by {caller_func_label}")
-
                 parent_node = pydot.Node(name=caller_func_signature, label=caller_func_label)
                 self.graph.add_node(parent_node)
                 edge = pydot.Edge(parent_node, child_node)
                 self.graph.add_edge(edge)
+
+
             return result
         return wrapper
+

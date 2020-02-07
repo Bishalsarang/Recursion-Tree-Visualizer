@@ -11,7 +11,7 @@ def is_valid(m, c):
 
 
 @vs(ignore_args=["node_num", "level"])
-def dfs(m, c, s, level, node_num):
+def dfs(m, c, s, level):
     if (m, c, s) == goal_state:
         return True
 
@@ -37,14 +37,14 @@ def dfs(m, c, s, level, node_num):
         if is_valid(next_m, next_c):
 
             if (next_m, next_c, next_side) not in visited:
-                vs.node_count += 1
-                solved = (solved or dfs(m=next_m, c=next_c, s=next_side, level=level + 1, node_num=vs.node_count))
+                solved = (solved or dfs(m=next_m, c=next_c, s=next_side, level=level + 1))
 
                 if solved:
                     return True
     return solved
 
 
-if (dfs(m=3, c=3, s=1, level=0, node_num=0)):
+if (dfs(m=3, c=3, s=1, level=0)):
     print("SOlution Found")
-    vs.write_image("missionaries.png")
+    # Save recursion tree to a file
+    vs.make_animation("missionaries.gif", delay=2)
