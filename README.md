@@ -1,5 +1,8 @@
 # Recursion Visualiser  
-Recursion visualiser is a python tool that draws recursion tree for recursive function with very less code changes.  
+Recursion visualiser is a python tool that visualizes recursion tree with animation and draws recursion tree for recursive function.
+It works with almost any type of recursive function.
+Just add the recursion-visualiser decorator to your function and let it do the rest of the work.
+
   
   ## Installation  
 The only dependency for recursion visualiser is Graphviz which you can download from [here](https://www.graphviz.org/download/)  
@@ -84,6 +87,9 @@ This is taken from one of my answers on quora where I had to manually  draw recu
  - [x] Minimal working version  
  - [x] Upload package to pypi  
  - [x] Support animation
+ - [ ] Support aliasing for function name
+ - [ ] Show repeated states
+ - [ ] Support node_color, backgroundcolor etc
  - [ ] Refactor  
  - [ ] Handle base cases  
  - [ ] Make more beautiful trees

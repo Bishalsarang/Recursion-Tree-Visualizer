@@ -36,5 +36,4 @@ sum = 10
 
 # Call solve with sum and an empty list
 f(sum=sum, ans=[])
-# Save recursion tree to a file
-vs.make_animation("make.gif", delay=2)
+vs.write_image("make_sum.png")
