@@ -16,17 +16,19 @@ dot_str_end = "}"
 class Visualiser(object):
     # Total number of nodes
     node_count = 0
-    graph = pydot.Dot(graph_type="digraph")
+    graph = pydot.Dot(graph_type="digraph", bgcolor="#fff3af")
     # To track function call numbers
     stack = []
     edges = []
     nodes = []
 
-    def __init__(self, ignore_args=None, show_argument_name=True, show_return_value=True):
+    def __init__(self, ignore_args=None, show_argument_name=True, show_return_value=True, node_properties_kwargs={}):
         #If enabled shows keyword arguments ordered by keys
         self.show_argument_name = show_argument_name
         # If enables shows the return value at every nodes
         self.show_return_value = show_return_value
+
+        self.node_properties_kwargs = node_properties_kwargs
 
         # Argument string that are to be ignored in diagram
         if ignore_args is None:
@@ -199,7 +201,15 @@ class Visualiser(object):
             del kwargs['node_num']
 
             self.edges.append(f'"{caller_func_signature}" -> "{current_function_signature}"')
-            self.nodes.append(f'"{current_function_signature}" [label="{current_function_label}"')
+
+            # Construct node string to be rendered in graphviz
+            node_string = f'"{current_function_signature}" [label="{current_function_label}"'
+
+            if self.node_properties_kwargs:
+                node_string += ", " + ", ".join([f'{key}="{value}"' for key, value in self.node_properties_kwargs.items()])
+
+            # current_function_label = current_function_label + ", ".join([f"{key}={value}" for key, value in self.node_properties_kwargs.items()])
+            self.nodes.append(node_string)
 
             # Return after function call
             result = fn(*args, **kwargs)
@@ -210,14 +220,19 @@ class Visualiser(object):
 
             # If show_return_value flag is set, display the result
             if self.show_return_value:
-                current_function_label += f" => {result}"
+                # If shape is set to record
+                # Then separate function label and return value by a row
+                if "record" in self.node_properties_kwargs.values():
+                    current_function_label = "{" + current_function_label + f"|{result} }}"
+                else:
+                    current_function_label += f"\n => {result}"
 
-            child_node = pydot.Node(name=current_function_signature, label=current_function_label)
+            child_node = pydot.Node(name=current_function_signature, label=current_function_label, **self.node_properties_kwargs)
             self.graph.add_node(child_node)
 
             # If the function is called by another function
             if caller_function_name not in ['<module>', 'main']:
-                parent_node = pydot.Node(name=caller_func_signature, label=caller_func_label)
+                parent_node = pydot.Node(name=caller_func_signature, label=caller_func_label, **self.node_properties_kwargs)
                 self.graph.add_node(parent_node)
                 edge = pydot.Edge(parent_node, child_node)
                 self.graph.add_edge(edge)

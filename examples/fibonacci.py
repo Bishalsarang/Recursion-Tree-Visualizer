@@ -1,11 +1,12 @@
 # Author: Bishal Sarang
 
 # Import Visualiser class from module visualiser
-from visualiser.visualiser import Visualiser as vs
+
+from test import Visualiser as vs
 
 # Add decorator
-# Decorator accepts arguments: ignore_args and show_argument_name
-@vs()
+# Decorator accepts optional arguments: ignore_args , show_argument_name, show_return_value and node_properties_kwargs
+@vs(node_properties_kwargs={"shape":"record", "color":"#f57542", "style":"filled", "fillcolor":"grey"})
 def fib(n):
     if n <= 1:
         return n

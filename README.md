@@ -77,16 +77,14 @@ Animation:
   
 ![enter image description here](https://github.com/sarangbishal/Recursion-Visualizer/blob/master/examples/fibonacci.png)  
 
-## 2. Make sum  
-This is taken from one of my answers on quora where I had to manually  draw recursion tree. Using Visualiser with very less changes I was able to draw the following tree. You can compare the tree [here](https://qr.ae/TltTCV)  
-![enter image description here](https://github.com/sarangbishal/Recursion-Visualizer/blob/master/examples/make_sum.png)  
-  
-  
+Find other examples : [here](https://github.com/sarangbishal/Recursion-Tree-Visualizer/tree/master/examples)
+and read more about **recursion-visualiser** [here](https://github.com/sarangbishal/Recursion-Tree-Visualizer/blob/master/Examples.md)
   
 ## TODO:  
  - [x] Minimal working version  
  - [x] Upload package to pypi  
  - [x] Support animation
+ - [x] Add node styles
  - [ ] Support aliasing for function name
  - [ ] Show repeated states
  - [ ] Support node_color, backgroundcolor etc

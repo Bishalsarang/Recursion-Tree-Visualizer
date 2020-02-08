@@ -4,8 +4,8 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="recursion-visualiser", # Replace with your own username
-    version="1.0.0",
+    name="recursion-visualiser",
+    version="1.0.1",
     author="Bishal Sarangkoti",
     author_email="sarangbishal@gmail.com",
     description="A small python package to visualise recursive function on Python. It draws recursion tree",
