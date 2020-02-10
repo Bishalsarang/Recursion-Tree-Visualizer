@@ -240,4 +240,3 @@ class Visualiser(object):
 
             return result
         return wrapper
-

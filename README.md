@@ -1,4 +1,7 @@
 # Recursion Visualiser  
+
+![](https://forthebadge.com/images/badges/made-with-python.svg)
+
 Recursion visualiser is a python tool that visualizes recursion tree with animation and draws recursion tree for recursive function.
 It works with almost any type of recursive function.
 Just add the recursion-visualiser decorator to your function and let it do the rest of the work.
@@ -45,8 +48,8 @@ Now we want to draw the recursion tree for this function. It is as simple as add
 from visualiser.visualiser import Visualiser as vs
 
 # Add decorator
-# Decorator accepts arguments: ignore_args and show_argument_name
-@vs()
+# Decorator accepts optional arguments: ignore_args , show_argument_name, show_return_value and node_properties_kwargs
+@vs(node_properties_kwargs={"shape":"record", "color":"#f57542", "style":"filled", "fillcolor":"grey"})
 def fib(n):
     if n <= 1:
         return n
@@ -73,9 +76,9 @@ Here are the changes required:
  
 Here is how the recursion tree looks like:  
 Animation:
-![enter image description here](https://github.com/sarangbishal/Recursion-Visualizer/blob/master/examples/fibonacci.gif)  
+![enter image description here](https://raw.githubusercontent.com/sarangbishal/Recursion-Tree-Visualizer/master/examples/fibonacci.gif)  
   
-![enter image description here](https://github.com/sarangbishal/Recursion-Visualizer/blob/master/examples/fibonacci.png)  
+![enter image description here](https://raw.githubusercontent.com/sarangbishal/Recursion-Tree-Visualizer/master/examples/fibonacci.png)  
 
 Find other examples : [here](https://github.com/sarangbishal/Recursion-Tree-Visualizer/tree/master/examples)
 and read more about **recursion-visualiser** [here](https://github.com/sarangbishal/Recursion-Tree-Visualizer/blob/master/Examples.md)
@@ -87,7 +90,7 @@ and read more about **recursion-visualiser** [here](https://github.com/sarangbis
  - [x] Add node styles
  - [ ] Support aliasing for function name
  - [ ] Show repeated states
- - [ ] Support node_color, backgroundcolor etc
+ - [x] Support node_color, backgroundcolor etc
  - [ ] Refactor  
  - [ ] Handle base cases  
  - [ ] Make more beautiful trees
