@@ -2,6 +2,14 @@
 
 ![](https://forthebadge.com/images/badges/made-with-python.svg)
 
+![PyPI downloads](https://img.shields.io/pypi/dm/recursion-visualiser)
+![Stars](https://img.shields.io/github/stars/sarangbishal/Recursion-Tree-Visualizer)
+![Forks](https://img.shields.io/github/forks/sarangbishal/Recursion-Tree-Visualizer)
+
+![](https://img.shields.io/pypi/v/recursion-visualiser)
+![](https://img.shields.io/pypi/pyversions/recursion-visualiser)
+![](https://img.shields.io/github/license/sarangbishal/Recursion-Tree-Visualizer?logo=MIT)
+
 Recursion visualiser is a python tool that visualizes recursion tree with animation and draws recursion tree for recursive function.
 It works with almost any type of recursive function.
 Just add the recursion-visualiser decorator to your function and let it do the rest of the work.
@@ -23,11 +31,17 @@ The easiest way to  install ```recursion-visualiser``` package is from [pypi](ht
 ```
 pip install recursion-visualiser
 ```
-The preferred way to import the class from the package is as:
+The preferred way to import the decorator class from the package is as:
 ```python
 from visualiser.visualiser import Visualiser as vs
 ```
-## Example  
+
+An alternative way is to clone the repository and install all the requirements.
+```
+pip install -r requirements.txt
+```
+
+## Usage 
 ### 1.  Fibonacci  
 Let's draw the recursion tree for fibonacci number.  
 Here is how the simple code looks like  
@@ -80,9 +94,12 @@ Animation:
   
 ![enter image description here](https://raw.githubusercontent.com/sarangbishal/Recursion-Tree-Visualizer/master/examples/fibonacci.png)  
 
-Find other examples : [here](https://github.com/sarangbishal/Recursion-Tree-Visualizer/tree/master/examples)
+
+# Support:
+Find other examples [here](https://github.com/sarangbishal/Recursion-Tree-Visualizer/tree/master/examples)
 and read more about **recursion-visualiser** [here](https://github.com/sarangbishal/Recursion-Tree-Visualizer/blob/master/Examples.md)
-  
+The official documentation for recursion-visualiser is available at [https://recursion-visualiser.readthedocs.io/en/](https://recursion-visualiser.readthedocs.io/en/latest/) ![](https://img.shields.io/badge/under-progress-green)
+
 ## TODO:  
  - [x] Minimal working version  
  - [x] Upload package to pypi  
