@@ -3,12 +3,12 @@
 ![](https://forthebadge.com/images/badges/made-with-python.svg)
 
 ![PyPI downloads](https://img.shields.io/pypi/dm/recursion-visualiser)
-![Stars](https://img.shields.io/github/stars/sarangbishal/Recursion-Tree-Visualizer)
-![Forks](https://img.shields.io/github/forks/sarangbishal/Recursion-Tree-Visualizer)
+![Stars](https://img.shields.io/github/stars/Bishalsarang/Recursion-Tree-Visualizer)
+![Forks](https://img.shields.io/github/forks/Bishalsarang/Recursion-Tree-Visualizer)
 
 ![](https://img.shields.io/pypi/v/recursion-visualiser)
 ![](https://img.shields.io/pypi/pyversions/recursion-visualiser)
-![](https://img.shields.io/github/license/sarangbishal/Recursion-Tree-Visualizer?logo=MIT)
+![](https://img.shields.io/github/license/Bishalsarang/Recursion-Tree-Visualizer?logo=MIT)
 
 Recursion visualiser is a python tool that visualizes recursion tree with animation and draws recursion tree for recursive function.
 It works with almost any type of recursive function.
@@ -90,9 +90,9 @@ Here are the changes required:
  
 Here is how the recursion tree looks like:  
 Animation:
-![enter image description here](https://raw.githubusercontent.com/sarangbishal/Recursion-Tree-Visualizer/master/examples/fibonacci.gif)  
+![enter image description here](https://raw.githubusercontent.com/Bishalsarang/Recursion-Tree-Visualizer/master/examples/fibonacci.gif)  
   
-![enter image description here](https://raw.githubusercontent.com/sarangbishal/Recursion-Tree-Visualizer/master/examples/fibonacci.png)  
+![enter image description here](https://raw.githubusercontent.com/Bishalsarang/Recursion-Tree-Visualizer/master/examples/fibonacci.png)  
 
 
 # Support:
