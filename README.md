@@ -96,8 +96,8 @@ Animation:
 
 
 # Support:
-Find other examples [here](https://github.com/sarangbishal/Recursion-Tree-Visualizer/tree/master/examples)
-and read more about **recursion-visualiser** [here](https://github.com/sarangbishal/Recursion-Tree-Visualizer/blob/master/Examples.md)
+Find other examples [here](https://github.com/Bishalsarang/Recursion-Tree-Visualizer/tree/master/examples)
+and read more about **recursion-visualiser** [here](https://github.com/Bishalsarang/Recursion-Tree-Visualizer/blob/master/Examples.md)
 The official documentation for recursion-visualiser is available at [https://recursion-visualiser.readthedocs.io/en/](https://recursion-visualiser.readthedocs.io/en/latest/) ![](https://img.shields.io/badge/under-progress-green)
 
 ## TODO:  
