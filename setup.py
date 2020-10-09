@@ -18,6 +18,6 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    install_requires=["pydot", "imageio"],
+    install_requires=["pydot==1.4.1", "imageio==2.6.1"],
     python_requires='>=3.6',
 )
