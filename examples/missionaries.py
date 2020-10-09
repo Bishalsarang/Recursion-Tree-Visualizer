@@ -6,8 +6,9 @@ goal_state = (0, 0, 0)
 options = [(2, 0), (1, 1), (0, 2), (1, 0), (0, 1)]
 visited = dict()
 
+
 def is_valid(m, c):
-    return m >= 0 and m <= 3 and c >= 0 and c <= 3
+    return 0 <= m <= 3 and 0 <= c <= 3
 
 
 @vs(ignore_args=["node_num", "level"])
@@ -15,12 +16,12 @@ def dfs(m, c, s, level):
     if (m, c, s) == goal_state:
         return True
 
-    if m > 0 and c > m:
+    if 0 < m < c:
         return False
 
     right_side_m = 3 - m
     right_side_c = 3 - c
-    if right_side_m > 0 and right_side_c > right_side_m:
+    if 0 < right_side_m < right_side_c:
         return False
 
     visited[(m, c, s)] = True
@@ -44,7 +45,7 @@ def dfs(m, c, s, level):
     return solved
 
 
-if (dfs(m=3, c=3, s=1, level=0)):
+if dfs(m=3, c=3, s=1, level=0):
     print("SOlution Found")
     # Save recursion tree to a file
     vs.make_animation("missionaries.gif", delay=2)

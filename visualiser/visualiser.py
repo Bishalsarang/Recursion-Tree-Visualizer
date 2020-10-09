@@ -1,19 +1,20 @@
-# Author: Bishal Sarang
+import os
 import sys
+import glob
+import pydot
+import shutil
+import imageio
+
 from functools import wraps
 from collections import OrderedDict
-import pydot
-import imageio
-import glob
-import os
-import shutil
 
 # Dot Language for graph
 dot_str_start = "digraph G {\n"
 dot_str_body = ""
 dot_str_end = "}"
 
-class Visualiser(object):
+
+class Visualiser:
     # Total number of nodes
     node_count = 0
     graph = pydot.Dot(graph_type="digraph", bgcolor="#fff3af")
@@ -22,21 +23,22 @@ class Visualiser(object):
     edges = []
     nodes = []
 
-    def __init__(self, ignore_args=None, show_argument_name=True, show_return_value=True, node_properties_kwargs={}):
-        #If enabled shows keyword arguments ordered by keys
+    def __init__(self, ignore_args=None, show_argument_name=True, show_return_value=True, node_properties_kwargs=None):
+        # If enabled shows keyword arguments ordered by keys
         self.show_argument_name = show_argument_name
         # If enables shows the return value at every nodes
         self.show_return_value = show_return_value
 
-        self.node_properties_kwargs = node_properties_kwargs
+        if node_properties_kwargs is None:
+            self.node_properties_kwargs = {}
+        else:
+            self.node_properties_kwargs = node_properties_kwargs
 
         # Argument string that are to be ignored in diagram
         if ignore_args is None:
             self.ignore_args = ['node_num']
         else:
             self.ignore_args = ['node_num'] + ignore_args
-
-
 
     @classmethod
     def write_image(cls, filename="out.png"):
@@ -48,12 +50,10 @@ class Visualiser(object):
 
     @classmethod
     def make_frames(cls):
-        """
-        Make frame for each steps
-        """
+        """Make frame for each steps"""
+
         # If frame directory doesn't exist
-        if not os.path.exists("frames"):
-            os.makedirs("frames")
+        os.makedirs("frames", exist_ok=True)
 
         Edges = cls.edges[::]
         Nodes = cls.nodes[::]
@@ -93,44 +93,42 @@ class Visualiser(object):
         # Save final tree image as png
         try:
             cls.write_image(f"{filename.split('.')[0]}.png")
-        except:
+        except Exception:
             print("Error saving image.")
 
         # Make animation as gif
         try:
             cls.make_frames()
-        except:
+        except Exception:
             print("Error writing frames")
 
         try:
             cls.write_gif(filename, delay=delay)
-        except:
+        except Exception:
             print("Error saving gif.")
 
-
     def extract_signature_label_arg_string(self, *args, **kwargs):
-        """
-        Returns function signature arguments as string and function label arguments as string.
-            label_argument string contains only the arguments that are not in ignore_args
-            signature_argument_string contains all the arguments available for the function
+        """Returns function signature arguments as string and function label arguments as string.
+        label_argument string contains only the arguments that are not in ignore_args
+        signature_argument_string contains all the arguments available for the function
         """
         # If show_argument flag is True(default)
         # Then argument_string is:
         # a=1, b=31, c=0
         signature_argument_string = ', '.join([repr(a) for a in args] +
-                                    [f"{key}={repr(value)}" for key, value in kwargs.items()])
+                                              [f"{key}={repr(value)}" for key, value in kwargs.items()])
 
         label_argument_string = ', '.join([repr(a) for a in args] +
-                                                           [f"{key}={repr(value)}"
-                                                            for key, value in kwargs.items()
-                                                            if key not in self.ignore_args])
+                                          [f"{key}={repr(value)}"
+                                           for key, value in kwargs.items()
+                                           if key not in self.ignore_args])
 
         # If show_argument flag is False
         # Then argument_string is:
         # 1, 31, 0
         if not self.show_argument_name:
             signature_argument_string = ', '.join([repr(value) for value in args] +
-                                                 [f"{repr(value)}" for key, value in kwargs.items()])
+                                                  [f"{repr(value)}" for key, value in kwargs.items()])
 
             label_argument_string = ', '.join([repr(a) for a in args] +
                                               [f"{repr(value)}"
@@ -151,10 +149,10 @@ class Visualiser(object):
             # Order all the keyword arguments
             kwargs = OrderedDict(sorted(kwargs.items()))
 
-
             """Details about current Function"""
             # Get signature and label arguments strings for current function
-            current_function_argument_string, current_function_label_argument_string = self.extract_signature_label_arg_string(*args, **kwargs)
+            current_function_argument_string, current_function_label_argument_string = self.extract_signature_label_arg_string(
+                *args, **kwargs)
 
             # Details about current function
             current_function_name = fn.__name__
@@ -164,7 +162,6 @@ class Visualiser(object):
             current_function_signature = f"{current_function_name}(" \
                                          f"{current_function_argument_string})"
             current_function_label = f"{current_function_name}({current_function_label_argument_string})"
-            """"""
 
             """Details about caller function"""
             caller_function_frame = sys._getframe(1)
@@ -175,14 +172,16 @@ class Visualiser(object):
             # Sort all the locals of caller function
             caller_function_locals = OrderedDict(sorted(caller_function_locals.items()))
             # Extract only those locals that are in arguments
-            caller_function_kwargs = {key: value for key, value in caller_function_locals.items() if key in caller_function_argument_names}
+            caller_function_kwargs = {key: value for key, value in caller_function_locals.items() if
+                                      key in caller_function_argument_names}
 
             # If the nodes has parent node get node_num from parent node
             if self.stack:
                 caller_function_kwargs.update({'node_num': self.stack[-1]})
             caller_function_kwargs = OrderedDict(sorted(caller_function_kwargs.items()))
 
-            caller_function_argument_string, caller_function_label_argument_string = self.extract_signature_label_arg_string(**caller_function_kwargs)
+            caller_function_argument_string, caller_function_label_argument_string = self.extract_signature_label_arg_string(
+                **caller_function_kwargs)
 
             # Caller Function
             caller_function_name = caller_function_frame.f_code.co_name
@@ -206,14 +205,15 @@ class Visualiser(object):
             node_string = f'"{current_function_signature}" [label="{current_function_label}"'
 
             if self.node_properties_kwargs:
-                node_string += ", " + ", ".join([f'{key}="{value}"' for key, value in self.node_properties_kwargs.items()])
+                node_string += ", " + ", ".join(
+                    [f'{key}="{value}"' for key, value in self.node_properties_kwargs.items()])
 
-            # current_function_label = current_function_label + ", ".join([f"{key}={value}" for key, value in self.node_properties_kwargs.items()])
+            # current_function_label = current_function_label + ", ".join([f"{key}={value}" for key, value in
+            # self.node_properties_kwargs.items()])
             self.nodes.append(node_string)
 
             # Return after function call
             result = fn(*args, **kwargs)
-
 
             # Pop from tha stack after returning
             self.stack.pop()
@@ -227,16 +227,18 @@ class Visualiser(object):
                 else:
                     current_function_label += f"\n => {result}"
 
-            child_node = pydot.Node(name=current_function_signature, label=current_function_label, **self.node_properties_kwargs)
+            child_node = pydot.Node(name=current_function_signature, label=current_function_label,
+                                    **self.node_properties_kwargs)
             self.graph.add_node(child_node)
 
             # If the function is called by another function
             if caller_function_name not in ['<module>', 'main']:
-                parent_node = pydot.Node(name=caller_func_signature, label=caller_func_label, **self.node_properties_kwargs)
+                parent_node = pydot.Node(name=caller_func_signature, label=caller_func_label,
+                                         **self.node_properties_kwargs)
                 self.graph.add_node(parent_node)
                 edge = pydot.Edge(parent_node, child_node)
                 self.graph.add_edge(edge)
 
-
             return result
+
         return wrapper

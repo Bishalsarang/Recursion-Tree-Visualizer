@@ -1,7 +1,5 @@
-# Author: Bishal Sarang
-
-# Import Visualiser class from module visualiser
 from visualiser.visualiser import Visualiser as vs
+
 
 # Add decorator
 # Decorator accepts optional arguments: ignore_args , show_argument_name, show_return_value and node_properties_kwargs
@@ -9,7 +7,7 @@ from visualiser.visualiser import Visualiser as vs
 def fact(n):
     if n <= 1:
         return n
-    return n * fact(n=n-1)
+    return n * fact(n=n - 1)
 
 
 def main():
