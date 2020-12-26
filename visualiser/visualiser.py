@@ -147,11 +147,10 @@ class Visualiser(object):
             return strings_list
 
         args_string = [repr(a) for a in args]
-        signature_kwargs_string = get_kwargs_strings()
+        signature_kwargs_string = [f"{repr(kwargs.get('node_num'))}"]
         label_kwargs_string = get_kwargs_strings(ignore_args=self.ignore_args)
 
-        signature_args_string = ', '.join(
-            args_string + signature_kwargs_string)
+        signature_args_string = ', '.join(signature_kwargs_string)
         label_args_string = ', '.join(args_string + label_kwargs_string)
 
         return signature_args_string, label_args_string
