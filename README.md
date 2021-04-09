@@ -16,32 +16,62 @@ Just add the recursion-visualiser decorator to your function and let it do the r
 
   
   ## Installation  
-The only dependency for recursion visualiser is Graphviz which you can download from [here](https://www.graphviz.org/download/)  
-  
-- Download  [graphviz binary](https://www.graphviz.org/download/)  
+  ### 1. Installing graphviz
+  #### Windows
+The only dependency for recursion visualiser is Graphviz
+- Download  [graphviz binary](https://www2.graphviz.org/Packages/stable/windows/10/msbuild/Release/Win32/)  
 - Add graphviz bin to path manually or by adding the following line on your script. Change the installation directory according to your installation path  
-  
 ```  
 # Set it to bin folder of graphviz  
 os.environ["PATH"] += os.pathsep +  'C:/Program Files (x86)/Graphviz2.38/bin/'  
 ```  
-
   
+  #### Ubuntu 
+  - Install graphviz
+  ```
+   sudo apt install graphviz
+  ```
+
+>  The instructions to install graphviz for other operating system is available  [here](https://www.graphviz.org/download/#linux)
+
+### 2. Installing recursion-visualiser
+
 The easiest way to  install ```recursion-visualiser``` package is from [pypi](https://pypi.org/project/recursion-visualiser/)
 ```
 pip install recursion-visualiser
 ```
-The preferred way to import the decorator class from the package is as:
-```python
-from visualiser.visualiser import Visualiser as vs
-```
+
 
 An alternative way is to clone the repository and install all the requirements.
 ```
 pip install -r requirements.txt
 ```
 
+## Alternative Installation using Docker
+If you have `docker` and `docker-compose` installed then you can install `recursion-tree-visualiser`  using `Docker` and `docker-compose.yml` file
+1.  Download `Docker` file from repo
+```bash
+curl https://raw.githubusercontent.com/Bishalsarang/Recursion-Tree-Visualizer/master/Dockerfile --output Dockerfile
+```
+
+3. Download `docker-compose.yml`
+```bash
+curl https://raw.githubusercontent.com/Bishalsarang/Recursion-Tree-Visualizer/master/docker-compose.yml --output docker-compose.yml
+```
+5. Start docker container
+```bash
+CURRENT_UID=$(id -u):$(id -g) docker-compose up
+```
+
+7. Run any python scripts and run using
+```
+docker-compose exec vs python fibonacci.py
+```
 ## Usage 
+The preferred way to import the decorator class from the package is as:
+```python
+from visualiser.visualiser import Visualiser as vs
+```
 ### 1.  Fibonacci  
 Let's draw the recursion tree for fibonacci number.  
 Here is how the simple code looks like  
@@ -98,7 +128,7 @@ Animation:
 # Support:
 Find other examples [here](https://github.com/Bishalsarang/Recursion-Tree-Visualizer/tree/master/examples)
 and read more about **recursion-visualiser** [here](https://github.com/Bishalsarang/Recursion-Tree-Visualizer/blob/master/Examples.md)
-The official documentation for recursion-visualiser is available at [https://recursion-visualiser.readthedocs.io/en/](https://recursion-visualiser.readthedocs.io/en/latest/) ![](https://img.shields.io/badge/under-progress-green)
+
 
 ## TODO:  
  - [x] Minimal working version  

@@ -1,0 +1,10 @@
+version: "3.6"
+services:
+  vs:
+    build: .
+    container_name: recursion-visualiser-env
+    stdin_open: true
+    tty: true
+    user: ${CURRENT_UID}
+    volumes:
+      - .:/vs
