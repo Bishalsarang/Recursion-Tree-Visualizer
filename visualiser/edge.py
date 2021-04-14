@@ -1,15 +1,18 @@
 import copy
+from typing import Union
+
+from visualiser import Node
 
 
-from visualiser import  Node
 class Edge:
 
-    def __init__(self, source_node: Node, destination_node: Node, label: str = '',
+    def __init__(self, source_node: Union[Node, str], destination_node: Union[Node, str], label: str = '',
                  **attrs: str) -> None:
-        # TODO: Remove copy after finding a better way to do this.
-        self._source_node = copy.deepcopy(source_node)
-        self._destination_node = copy.deepcopy(destination_node)
+        self._source_node = Node(source_node) if isinstance(source_node, str) else copy.deepcopy(source_node)
+        self._destination_node = Node(destination_node) if isinstance(destination_node, str) else copy.deepcopy(
+            destination_node)
 
+        self._name = f"{self._source_node.name} -> {self._destination_node.name}"
         self._label = label
         self._attrs = attrs
 
@@ -28,6 +31,22 @@ class Edge:
         :param _label: str
         """
         self._label = _label
+
+    @property
+    def name(self) -> str:
+        """
+        Get name for edge.
+        :return: str
+        """
+        return self._name
+
+    @name.setter
+    def name(self, _name: str) -> None:
+        """
+        Set label for edge.
+        :param _name: str
+        """
+        self._name = _name
 
     @property
     def source_node(self) -> Node:
@@ -82,7 +101,8 @@ class Edge:
         Remove attribute from edge.
         :param key: str
         """
-        del self._attrs[key]
+        if self._attrs.get(key):
+            del self._attrs[key]
 
     def get_attributes_string(self) -> str:
         """
@@ -90,10 +110,10 @@ class Edge:
         :return:
         """
         if len(self._label) == 0:
-            return '[' + ', '.join([f'{key}="{value}"' for key, value in self._attrs.items()]) + ']'
+            return '[' + ', '.join([f'{key}="{value}"' for key, value in self._attrs.items()]) + '];'
 
         return '[' + f'label="{self._label}", ' + ', '.join(
-            [f'{key}="{value}"' for key, value in self._attrs.items()]) + ']'
+            [f'{key}="{value}"' for key, value in self._attrs.items()]) + '];'
 
     def to_string(self) -> str:
         """
