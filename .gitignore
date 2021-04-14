@@ -5,7 +5,6 @@ img
 out*
 *frames*
 
-packaging.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -632,6 +631,3 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
-
-!/packaging.txt
-!/packaging.txt
