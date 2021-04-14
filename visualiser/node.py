@@ -1,7 +1,8 @@
+
 class Node:
     def __init__(self, name, label='', **attrs):
         # TODO: Add support for initialization of attributes from attribute dict
-        self._name = name
+        self._name =  name
         self._attrs = attrs
 
         if len(label) == 0:
@@ -11,6 +12,9 @@ class Node:
 
     def __repr__(self):
         return f"Node('{self.name}')"
+
+    def __eq__(self, other):
+        return self.to_string() == other.to_string()
 
     @property
     def name(self):
@@ -29,7 +33,7 @@ class Node:
         self._label = _label
 
     def get_attribute(self, key):
-        return self._attrs[key]
+        return self._attrs.get(key)
 
     def set_attribute(self, key, value):
         self._attrs[key] = value
