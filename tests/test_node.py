@@ -3,6 +3,8 @@ from visualiser import *
 """
     Test case class for nodes 
 """
+
+
 class TestNode:
     def test_create_new_node(self):
         node = Node('bishal', 'Bishal label', color='red', style='filled')
@@ -36,5 +38,3 @@ class TestNode:
         assert node.name == 'Bishal renamed'
 
         assert node.to_string() == 'Bishal renamed [label="Bishal renamed label", color="green", style="filled"];'
-
-

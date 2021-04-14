@@ -42,6 +42,7 @@ class Node:
         del self._attrs[key]
 
     def get_attributes_string(self):
+        # TODO: Check if no any attributes and labels to avoid '[]'
         return '[' + f'label="{self._label}", ' + ', '.join(
             [f'{key}="{value}"' for key, value in self._attrs.items()]) + '];'
 
