@@ -6,4 +6,6 @@ __version__ = "1.0.1"
 from .node import Node
 from .edge import Edge
 from .graph import Graph
+from .animation import Animation
+
 from visualiser import *
