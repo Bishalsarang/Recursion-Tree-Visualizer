@@ -2,7 +2,7 @@
 class Node:
     def __init__(self, name, label='', **attrs):
         # TODO: Add support for initialization of attributes from attribute dict
-        self._name =  name
+        self._name = f'"{name}"'
         self._attrs = attrs
 
         if len(label) == 0:
@@ -22,7 +22,8 @@ class Node:
 
     @name.setter
     def name(self, _name):
-        self._name = _name
+        print(_name)
+        self._name = f'"{_name}"'
 
     @property
     def label(self):

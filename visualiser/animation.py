@@ -64,5 +64,5 @@ class Animation:
 
         imageio.mimsave(name, images, duration=delay)
         # Delete temporary directory
-        shutil.rmtree("frames")
+        # shutil.rmtree("frames")
 

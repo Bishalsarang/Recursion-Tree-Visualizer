@@ -24,8 +24,8 @@ class Graph:
         self._nodes = list(filter(lambda node: node.name != _node, self._nodes))
 
     def add_node(self, node):
-        if self.get_node(node.name) is not None:
-            self.remove_node(node)
+        # if self.get_node(node.name) is not None:
+        #     self.remove_node(node)
 
         self._nodes.append(copy.deepcopy(node))
 
