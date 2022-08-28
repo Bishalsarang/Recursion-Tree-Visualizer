@@ -15,16 +15,9 @@ dot_str_end = "}"
 
 
 class Visualiser(object):
-    # Total number of nodes
-    node_count = 0
-    graph = pydot.Dot(graph_type="digraph", bgcolor="#fff3af")
-    # To track function call numbers
-    stack = []
-    edges = []
-    nodes = []
-
     def __init__(self, ignore_args=None, show_argument_name=True,
                  show_return_value=True, node_properties_kwargs={}):
+        self.init_graph()
         # If enabled shows keyword arguments ordered by keys
         self.show_argument_name = show_argument_name
         # If enables shows the return value at every nodes
@@ -113,6 +106,8 @@ class Visualiser(object):
             cls.write_gif(filename, delay=delay)
         except:
             print("Error saving gif.")
+
+        cls.init_graph()
 
     def extract_arg_strings(self, *args, **kwargs):
         """
@@ -274,3 +269,13 @@ class Visualiser(object):
 
             return result
         return wrapper
+
+    @classmethod
+    def init_graph(cls):
+        # Total number of nodes
+        cls.node_count = 0
+        cls.graph = pydot.Dot(graph_type="digraph", bgcolor="#fff3af")
+        # To track function call numbers
+        cls.stack = []
+        cls.edges = []
+        cls.nodes = []
