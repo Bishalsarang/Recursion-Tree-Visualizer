@@ -82,7 +82,7 @@ class Visualiser(object):
         for filename in sorted_images:
             images.append(imageio.imread(filename))
         print("Writing gif...")
-        imageio.mimsave(name, images, duration=delay)
+        imageio.mimsave(name, images, fps=delay)
         print(f"Saved gif {name} successfully")
         # Delete temporary directory
         shutil.rmtree("frames")
