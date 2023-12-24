@@ -125,9 +125,12 @@ Animation:
 ![enter image description here](https://raw.githubusercontent.com/Bishalsarang/Recursion-Tree-Visualizer/master/examples/fibonacci.png)  
 
 
-# Support:
-Find other examples [here](https://github.com/Bishalsarang/Recursion-Tree-Visualizer/tree/master/examples)
-and read more about **recursion-visualiser** [here](https://github.com/Bishalsarang/Recursion-Tree-Visualizer/blob/master/Examples.md)
+## Support
+If you like this project and want to support it, consider buying me a coffee!
+
+[![Buy Me A Coffee](https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png)](https://www.buymeacoffee.com/bishalsarang)
+
+Thank you for your support!
 
 
 ## TODO:  
