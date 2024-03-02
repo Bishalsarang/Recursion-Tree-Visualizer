@@ -175,6 +175,7 @@ class Visualiser(object):
             # Current function signature looks as follows:
             # foo(1, 31, 0) or foo(a=1, b=31, c=0)
             function_signature = f"{function_name}({signature_args_string})"
+            # Pydot needs us to escape certain special chars, namely { } and < > 
             function_label = re.escape(function_label)
             function_label = function_label.replace("<","\<").replace(">","\>")
             """"""
