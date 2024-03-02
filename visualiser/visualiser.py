@@ -175,7 +175,9 @@ class Visualiser(object):
             # Current function signature looks as follows:
             # foo(1, 31, 0) or foo(a=1, b=31, c=0)
             function_signature = f"{function_name}({signature_args_string})"
-            function_label = f"{function_name}({label_args_string})"
+            # Pydot needs us to escape certain special chars, namely { } and < > 
+            function_label = re.escape(function_label)
+            function_label = function_label.replace("<","\<").replace(">","\>")
             """"""
 
             """Details about caller function"""
@@ -247,11 +249,12 @@ class Visualiser(object):
             if self.show_return_value:
                 # If shape is set to record
                 # Then separate function label and return value by a row
+                escaped_return_value = re.escape(str(result)).replace("<", "\<").replace(">", "\>")
                 if "record" in self.node_properties_kwargs.values():
                     function_label = "{" + \
-                        function_label + f"|{result} }}"
+                        function_label + f"|{escaped_return_value} }}"
                 else:
-                    function_label += f"\n => {result}"
+                    function_label += f"\n => {escaped_return_value}"
 
             child_node = pydot.Node(name=function_signature,
                                     label=function_label,
