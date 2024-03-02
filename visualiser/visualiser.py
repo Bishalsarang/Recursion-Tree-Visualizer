@@ -175,7 +175,7 @@ class Visualiser(object):
             # Current function signature looks as follows:
             # foo(1, 31, 0) or foo(a=1, b=31, c=0)
             function_signature = f"{function_name}({signature_args_string})"
-            function_label = f"{function_name}({label_args_string})"
+            function_label = f"{function_name}({label_args_string})".replace("{","\{").replace("}","\}")
             """"""
 
             """Details about caller function"""
